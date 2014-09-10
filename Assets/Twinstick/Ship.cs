@@ -17,8 +17,8 @@ public class Ship : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_movementDirection = Vector2.zero;
-	    _shotDirection = Vector2.zero;
+		_movementDirection = Vector2.right;
+	    _shotDirection = Vector2.right;
 
 	    _body = transform.FindChild("Body").gameObject;
 	    _turrent = transform.FindChild("Turrent").gameObject;
