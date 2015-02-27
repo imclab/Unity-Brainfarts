@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 
 	    if (Time.frameCount%5 == 1)
         {
-	        _playerLight.light.intensity = Random.Range(0.5f - intensityModifier, 0.5f);
+	        _playerLight.GetComponent<Light>().intensity = Random.Range(0.5f - intensityModifier, 0.5f);
             _playerLight.transform.localPosition = new Vector3(Random.Range(-shakeModifier, shakeModifier), Random.Range( -shakeModifier, shakeModifier),0);
 	    }
 
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.tag == "Finish")
         {
             Debug.Log("You Win!");
-            _playerLight.light.color = new Color(1,0,0);
+            _playerLight.GetComponent<Light>().color = new Color(1,0,0);
         }
 
         this.transform.position = _positionLastFrame;
