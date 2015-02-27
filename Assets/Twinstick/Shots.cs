@@ -31,10 +31,10 @@ public class Shots : MonoBehaviour
 
         if (_lifetime > MaxLifetime)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
-        this.transform.Translate(_movementDirection * Time.deltaTime * MovementSpeedModifier);
+        transform.Translate(_movementDirection * Time.deltaTime * MovementSpeedModifier);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -42,7 +42,7 @@ public class Shots : MonoBehaviour
         if (other.gameObject.tag == "Target")
         {
             Destroy(other.gameObject);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

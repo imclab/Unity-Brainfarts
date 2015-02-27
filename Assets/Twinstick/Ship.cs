@@ -31,7 +31,7 @@ public class Ship : MonoBehaviour {
 		_movementDirection = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
         _shotDirection = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"));
 
-		this.transform.Translate (_movementDirection * Time.deltaTime * MovementSpeedModifier);
+		transform.Translate (_movementDirection * Time.deltaTime * MovementSpeedModifier);
 
 	    _currentShotTimer -= Time.deltaTime;
 
@@ -64,16 +64,12 @@ public class Ship : MonoBehaviour {
                 orientationModifier = -1;
             }
 
-            _turrent.transform.rotation = Quaternion.Euler(0, 0,
-               Vector2.Angle(new Vector2(1, 0), _shotDirection) * orientationModifier);
+            _turrent.transform.rotation = Quaternion.Euler(0, 0, Vector2.Angle(new Vector2(1, 0), _shotDirection)*orientationModifier);
 
             if (_currentShotTimer < 0)
             {
-                GameObject _shot =
-                    Instantiate(ShotPrefab,
-                        this.transform.position + new Vector3(_shotDirection.x, _shotDirection.y)*0.4f,
-                        _turrent.transform.rotation) as GameObject;
-                _shot.transform.parent = _shots.transform;
+                GameObject shot = Instantiate(ShotPrefab, transform.position + new Vector3(_shotDirection.x, _shotDirection.y)*0.4f, _turrent.transform.rotation) as GameObject;
+                if (shot != null) shot.transform.parent = _shots.transform;
 
                 _currentShotTimer = ShotTimer;
             }
