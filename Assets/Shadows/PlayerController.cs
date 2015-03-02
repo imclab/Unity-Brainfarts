@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour {
 
     private Transform _goal;
 
+    private int _lightups;
+    private float _lightIntensityUp;
+    private float _lightRangeUp;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,6 +30,10 @@ public class PlayerController : MonoBehaviour {
 	        MovementSpeedModifier = 1;
 
 	    _positionLastFrame = Vector2.zero;
+
+	    _lightups = 0;
+	    _lightIntensityUp = 0.1f;
+	    _lightRangeUp = 0.7f;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +51,8 @@ public class PlayerController : MonoBehaviour {
 
 	    if (Time.frameCount%5 == 1)
         {
-	        _playerLight.GetComponent<Light>().intensity = Random.Range(0.5f - intensityModifier, 0.5f);
+            _playerLight.GetComponent<Light>().intensity = Random.Range(0.5f - intensityModifier + (_lightups * _lightIntensityUp), 0.5f + (_lightups * _lightIntensityUp));
+            _playerLight.GetComponent<Light>().range = 5 + (_lightups * _lightRangeUp);
             _playerLight.transform.localPosition = new Vector3(Random.Range(-shakeModifier, shakeModifier), Random.Range( -shakeModifier, shakeModifier),0);
 	    }
 
@@ -57,6 +66,12 @@ public class PlayerController : MonoBehaviour {
             _playerLight.GetComponent<Light>().color = new Color(1,0,0);
         }
 
+        if (other.gameObject.tag == "LightUp")
+        {
+            Debug.Log("Light Up");
+            _lightups++;
+            other.gameObject.GetComponent<LightTrigger>().Trigger();
+        }
         this.transform.position = _positionLastFrame;
     }
 }
